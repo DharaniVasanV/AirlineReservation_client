@@ -1,0 +1,58 @@
+.booking-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(25, 118, 210, 0.85) 0%, rgba(13, 71, 161, 0.85) 100%),
+              url('https://images.unsplash.com/photo-1540962351504-03099e0a754b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2086&q=80') center/cover no-repeat;
+  padding: 20px;
+}
+
+.booking-form {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 48px;
+  border-radius: 25px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  max-width: 650px;
+  width: 100%;
+  margin: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.booking-form::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #1976d2, #42a5f5, #1976d2);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.form-title {
+  text-align: center;
+  background: linear-gradient(45deg, #1976d2 30%, #42a5f5 90%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  margin-bottom: 36px;
+  filter: drop-shadow(0 2px 4px rgba(25, 118, 210, 0.3));
+}
+
+@media (max-width: 600px) {
+  .booking-form {
+    padding: 20px;
+    margin: 10px;
+  }
+}

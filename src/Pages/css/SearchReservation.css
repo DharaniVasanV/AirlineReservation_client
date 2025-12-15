@@ -1,0 +1,77 @@
+.search-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+}
+
+.search-form {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  max-width: 700px;
+  width: 100%;
+  margin: 20px;
+}
+
+.search-title {
+  text-align: center;
+  color: #1976d2;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+.reservation-result {
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #e3f2fd;
+}
+
+.booking-reference {
+  background: #f3e5f5;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.passenger-details {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.flight-details {
+  background: #e8f5e8;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.booking-date {
+  text-align: center;
+  padding-top: 15px;
+  border-top: 1px solid #e0e0e0;
+}
+
+@media (max-width: 600px) {
+  .search-form {
+    padding: 20px;
+    margin: 10px;
+  }
+  
+  .result-header {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+}
