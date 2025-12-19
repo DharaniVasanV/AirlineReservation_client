@@ -1,69 +1,78 @@
+/* --- MAIN CONTAINER --- */
 .dashboard-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, rgba(30, 144, 255, 0.9) 0%, rgba(0, 100, 200, 0.9) 100%),
+  /* Darkened the gradient overlay for better outer-text visibility */
+  background: linear-gradient(135deg, rgba(10, 36, 99, 0.85) 0%, rgba(0, 82, 204, 0.85) 100%),
               url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-4.0.3&auto=format&fit=crop&w=2074&q=80') center/cover no-repeat fixed;
-  background-size: cover;
-  background-attachment: fixed;
   position: relative;
-  color: white;
+  /* Remove the universal white !important rule from here */
+  color: #ffffff;
 }
 
-.dashboard-container * {
-  color: white !important;
-}
-
-.dashboard-container .MuiTypography-root {
-  color: white !important;
-}
-
-.dashboard-container .MuiButton-root {
-  color: white !important;
-}
-
+/* --- HEADER --- */
 .dashboard-header {
-  background: linear-gradient(135deg, rgba(30, 144, 255, 0.95) 0%, rgba(0, 100, 200, 0.95) 100%) !important;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05) !important; /* Semi-transparent white */
+  backdrop-filter: blur(15px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
+/* Ensure header text/icons stay white */
+.dashboard-header .MuiTypography-root,
+.dashboard-header .MuiSvgIcon-root,
+.dashboard-header .MuiButton-root {
+  color: #ffffff !important;
+}
+
+/* --- CARDS (The white sections) --- */
+.nav-card, .content-card, .flight-card {
+  background: rgba(255, 255, 255, 0.98) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  border-radius: 20px;
+}
+
+/* FIX: Ensure all text inside white cards is DARK BLUE for visibility */
+.nav-card *, .content-card *, .flight-card * {
+  color: #0a2463 !important; 
+}
+
+/* --- SPECIFIC CARD BEHAVIORS --- */
 .nav-card {
   position: sticky;
   top: 20px;
-  background: rgba(255, 255, 255, 0.95) !important;
-  backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  border-radius: 16px;
+  padding: 10px;
 }
 
 .content-card {
   min-height: 600px;
-  background: rgba(255, 255, 255, 0.95) !important;
-  backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  border-radius: 16px;
+  padding: 30px;
 }
 
 .flight-card {
-  transition: all 0.3s ease;
-  border-left: 4px solid #1e90ff;
-  background: rgba(255, 255, 255, 0.98) !important;
-  backdrop-filter: blur(10px);
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-left: 6px solid #1e90ff;
+  margin-bottom: 16px;
 }
 
 .flight-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-  border-left-width: 6px;
+  transform: translateX(5px); /* Slide effect instead of just floating */
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.1);
+  background: #ffffff !important;
 }
 
+/* --- BUTTONS INSIDE CARDS --- */
+/* We want buttons inside cards to have their own blue color, not the dark navy text */
+.content-card .MuiButton-contained {
+  background-color: #1e90ff !important;
+  color: #ffffff !important;
+}
+
+/* --- RESPONSIVENESS --- */
 @media (max-width: 900px) {
   .nav-card {
     position: static;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
   }
 }

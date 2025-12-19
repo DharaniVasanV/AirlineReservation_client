@@ -147,7 +147,7 @@ const ReservationList = ({ user }) => {
         </Alert>
       )}
 
-      <Typography variant="h6" sx={{ mb: 3, color: 'text.secondary' }}>
+      <Typography variant="h6" sx={{ mb: 3, color: '#ffffff', fontWeight: 600, textShadow: '2px 2px 4px rgba(0,0,0,0.3)' }}>
         Total Reservations: {reservations.length}
       </Typography>
 
@@ -158,7 +158,7 @@ const ReservationList = ({ user }) => {
               <CardContent>
                 <Stack spacing={2}>
                   <Box className="card-header">
-                    <Typography variant="h6" component="h3">
+                    <Typography variant="h6" component="h3" sx={{ color: '#0a2463', fontWeight: 700 }}>
                       {reservation.bookingReference}
                     </Typography>
                     <Chip
@@ -171,42 +171,42 @@ const ReservationList = ({ user }) => {
                   <Box className="passenger-info">
                     <Stack direction="row" alignItems="center" spacing={1}>
                       <Person fontSize="small" color="action" />
-                      <Typography variant="body2">{reservation.passengerName}</Typography>
+                      <Typography variant="body2" sx={{ color: '#0a2463', fontWeight: 500 }}>{reservation.passengerName}</Typography>
                     </Stack>
                     
                     <Stack direction="row" alignItems="center" spacing={1}>
                       <Email fontSize="small" color="action" />
-                      <Typography variant="body2">{reservation.email}</Typography>
+                      <Typography variant="body2" sx={{ color: '#0a2463', fontWeight: 500 }}>{reservation.email}</Typography>
                     </Stack>
                     
                     <Stack direction="row" alignItems="center" spacing={1}>
                       <Phone fontSize="small" color="action" />
-                      <Typography variant="body2">{reservation.phone}</Typography>
+                      <Typography variant="body2" sx={{ color: '#0a2463', fontWeight: 500 }}>{reservation.phone}</Typography>
                     </Stack>
                   </Box>
 
                   <Box className="flight-info">
-                    <Typography variant="subtitle2" color="primary" gutterBottom>
+                    <Typography variant="subtitle2" sx={{ color: '#ffffff', fontWeight: 700, mb: 1 }}>
                       Flight Details
                     </Typography>
                     
                     <Stack spacing={1}>
-                      <Typography variant="body2">
+                      <Typography variant="body2" sx={{ color: '#ffffff', fontWeight: 500 }}>
                         <strong>Flight:</strong> {reservation.flightNumber}
                       </Typography>
-                      <Typography variant="body2">
+                      <Typography variant="body2" sx={{ color: '#ffffff', fontWeight: 500 }}>
                         <strong>Route:</strong> {reservation.departure} → {reservation.destination}
                       </Typography>
                       <Stack direction="row" alignItems="center" spacing={1}>
                         <CalendarToday fontSize="small" color="action" />
-                        <Typography variant="body2">
+                        <Typography variant="body2" sx={{ color: '#ffffff', fontWeight: 500 }}>
                           {formatDate(reservation.departureDate)}
                         </Typography>
                       </Stack>
                       {reservation.seatNumber && reservation.seatNumber !== 'Not Assigned' && (
                         <Stack direction="row" alignItems="center" spacing={1}>
                           <AirlineSeatReclineNormal fontSize="small" color="action" />
-                          <Typography variant="body2">
+                          <Typography variant="body2" sx={{ color: '#ffffff', fontWeight: 500 }}>
                             Seat: {reservation.seatNumber}
                           </Typography>
                         </Stack>
@@ -214,7 +214,7 @@ const ReservationList = ({ user }) => {
                       {reservation.passportNumber && (
                         <Stack direction="row" alignItems="center" spacing={1}>
                           <CreditCard fontSize="small" color="action" />
-                          <Typography variant="body2">
+                          <Typography variant="body2" sx={{ color: '#ffffff', fontWeight: 500 }}>
                             Passport: {reservation.passportNumber}
                           </Typography>
                         </Stack>
@@ -245,22 +245,30 @@ const ReservationList = ({ user }) => {
                       )
                     )}
                     
-                    {reservation.price && (
-                      <Typography variant="h6" color="primary">
-                        Total: ₹{reservation.price}
-                      </Typography>
-                    )}
-                    
                     <Button
                       variant="outlined"
                       size="small"
                       startIcon={<Download />}
                       onClick={() => downloadTicket(reservation)}
-                      color="primary"
+                      sx={{ ml: 'auto' }}
                     >
                       Download Ticket
                     </Button>
                   </Stack>
+
+                  {reservation.price && (
+                    <Box sx={{ 
+                      mt: 2, 
+                      p: 2, 
+                      background: 'linear-gradient(135deg, #4caf50 0%, #2e7d32 100%)',
+                      borderRadius: 2,
+                      textAlign: 'center'
+                    }}>
+                      <Typography variant="h5" sx={{ color: '#ffffff', fontWeight: 700 }}>
+                        ₹{reservation.price}
+                      </Typography>
+                    </Box>
+                  )}
                 </Stack>
               </CardContent>
             </Card>
@@ -268,14 +276,16 @@ const ReservationList = ({ user }) => {
         ))}
       </Grid>
 
-      {reservations.length === 0 && !loading && (
+      {reservations.length === 0 && (
         <Box className="empty-state">
-          <Flight sx={{ fontSize: 80, color: 'text.disabled', mb: 2 }} />
-          <Typography variant="h6" color="text.secondary">
-            No reservations found
+          <Flight sx={{ fontSize: 80, color: '#1e90ff', mb: 2 }} />
+          <Typography variant="h5" sx={{ color: '#0a2463', fontWeight: 600, mb: 1 }}>
+            No Reservations Found
           </Typography>
-          <Typography variant="body2" color="text.disabled">
-            Start by creating your first flight reservation
+          <Typography variant="body1" sx={{ color: '#666', textAlign: 'center' }}>
+            {user?.role === 'admin' 
+              ? 'No bookings have been made yet.' 
+              : 'You haven\'t made any bookings yet. Start exploring flights!'}
           </Typography>
         </Box>
       )}
