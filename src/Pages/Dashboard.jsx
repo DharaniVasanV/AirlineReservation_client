@@ -16,11 +16,13 @@ import {
   BookOnline,
   History,
   Logout,
-  AdminPanelSettings
+  AdminPanelSettings,
+  Search
 } from '@mui/icons-material';
 import FlightSearch from './FlightSearch';
 import BookingForm from './BookingForm';
 import ReservationList from './ReservationList';
+import SearchReservation from './SearchReservation';
 import AdminPanel from './AdminPanel';
 import './css/Dashboard.css';
 
@@ -39,12 +41,14 @@ const Dashboard = ({ user, onLogout }) => {
     }
     
     switch (activeTab) {
-      case 'search':
+      case 'flights':
         return <FlightSearch onFlightSelect={handleFlightSelect} />;
       case 'book':
-        return <BookingForm user={user} selectedFlight={selectedFlight} />;
+        return <BookingForm user={user} selectedFlight={selectedFlight} onBookingSuccess={() => { setSelectedFlight(null); setActiveTab('reservations'); }} />;
       case 'reservations':
         return <ReservationList user={user} />;
+      case 'search':
+        return <SearchReservation />;
       default:
         return <FlightSearch onFlightSelect={handleFlightSelect} />;
     }
@@ -84,9 +88,9 @@ const Dashboard = ({ user, onLogout }) => {
                     </Typography>
                     <Stack spacing={2}>
                       <Button
-                        variant={activeTab === 'search' ? 'contained' : 'outlined'}
+                        variant={activeTab === 'flights' ? 'contained' : 'outlined'}
                         startIcon={<FlightTakeoff />}
-                        onClick={() => setActiveTab('search')}
+                        onClick={() => setActiveTab('flights')}
                         fullWidth
                       >
                         Search Flights
@@ -106,6 +110,14 @@ const Dashboard = ({ user, onLogout }) => {
                         fullWidth
                       >
                         My Bookings
+                      </Button>
+                      <Button
+                        variant={activeTab === 'search' ? 'contained' : 'outlined'}
+                        startIcon={<Search />}
+                        onClick={() => setActiveTab('search')}
+                        fullWidth
+                      >
+                        Find Booking
                       </Button>
                     </Stack>
                   </CardContent>

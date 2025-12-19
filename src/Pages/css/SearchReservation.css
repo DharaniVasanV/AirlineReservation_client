@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #1e90ff 0%, #0064c8 100%);
   padding: 20px;
 }
 
@@ -20,7 +20,7 @@
 
 .search-title {
   text-align: center;
-  color: #1976d2;
+  color: #1e90ff;
   font-weight: 600;
   margin-bottom: 30px;
 }
@@ -35,11 +35,12 @@
   justify-content: space-between;
   align-items: center;
   padding-bottom: 15px;
-  border-bottom: 2px solid #e3f2fd;
+  border-bottom: 2px solid #1e90ff;
 }
 
 .booking-reference {
-  background: #f3e5f5;
+  background: #1e90ff;
+  color: white;
   padding: 15px;
   border-radius: 10px;
   text-align: center;
@@ -52,7 +53,8 @@
 }
 
 .flight-details {
-  background: #e8f5e8;
+  background: #1e90ff;
+  color: white;
   padding: 20px;
   border-radius: 10px;
 }

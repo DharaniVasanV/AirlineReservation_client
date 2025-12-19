@@ -3,7 +3,7 @@
   width: 100vw;
   margin: 0;
   padding: 0;
-  background: linear-gradient(135deg, rgba(25, 118, 210, 0.9) 0%, rgba(13, 71, 161, 0.9) 100%),
+  background: linear-gradient(135deg, rgba(30, 144, 255, 0.95) 0%, rgba(0, 100, 200, 0.95) 100%),
               url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-4.0.3&auto=format&fit=crop&w=2074&q=80') center/cover no-repeat fixed;
   background-size: cover;
   background-attachment: fixed;
@@ -35,7 +35,7 @@
   font-weight: 700;
   margin-bottom: 24px;
   text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
-  background: linear-gradient(45deg, #ffffff 30%, #e3f2fd 90%);
+  background: linear-gradient(45deg, #ffffff 30%, #1e90ff 90%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -45,7 +45,7 @@
   font-weight: 400;
   margin-bottom: 24px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-  color: #e3f2fd;
+  color: #ffffff;
 }
 
 .hero-description {
@@ -171,7 +171,7 @@
 
 .stat-number {
   font-weight: 700;
-  background: linear-gradient(45deg, #ffd54f 30%, #ffecb3 90%);
+  background: linear-gradient(45deg, #1e90ff 30%, #0064c8 90%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

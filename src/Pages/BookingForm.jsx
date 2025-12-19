@@ -12,12 +12,13 @@ import { FlightTakeoff, Person } from '@mui/icons-material';
 import axios from 'axios';
 import './css/BookingForm.css';
 
-const BookingForm = ({ user, selectedFlight }) => {
+const BookingForm = ({ user, selectedFlight, onBookingSuccess }) => {
   const [formData, setFormData] = useState({
     passengerName: '',
     email: '',
     phone: '',
-    seatNumber: ''
+    seatNumber: '',
+    passportNumber: ''
   });
 
   useEffect(() => {
@@ -26,7 +27,8 @@ const BookingForm = ({ user, selectedFlight }) => {
         passengerName: user.name || '',
         email: user.email || '',
         phone: user.phone || '',
-        seatNumber: ''
+        seatNumber: '',
+        passportNumber: ''
       });
     }
   }, [user]);
@@ -71,12 +73,22 @@ const BookingForm = ({ user, selectedFlight }) => {
           type: 'success',
           message: `Booking confirmed! Reference: ${response.data.data.bookingReference}`
         });
+        
+        // Clear form for next customer
         setFormData({
-          passengerName: user?.name || '',
-          email: user?.email || '',
-          phone: user?.phone || '',
-          seatNumber: ''
+          passengerName: '',
+          email: '',
+          phone: '',
+          seatNumber: '',
+          passportNumber: ''
         });
+        
+        // Navigate to My Bookings after 2 seconds and clear selected flight
+        setTimeout(() => {
+          if (onBookingSuccess) {
+            onBookingSuccess();
+          }
+        }, 2000);
       }
     } catch (error) {
       setAlert({
@@ -101,8 +113,9 @@ const BookingForm = ({ user, selectedFlight }) => {
           <Box sx={{ mb: 3, p: 2, bgcolor: 'primary.light', borderRadius: 2, color: 'white' }}>
             <Typography variant="h6">{selectedFlight.flightNumber} - {selectedFlight.airline}</Typography>
             <Typography>{selectedFlight.departure} → {selectedFlight.destination}</Typography>
+            <Typography>Date: {selectedFlight.flightDate ? new Date(selectedFlight.flightDate).toLocaleDateString('en-IN') : 'N/A'}</Typography>
             <Typography>Departure: {selectedFlight.departureTime} | Arrival: {selectedFlight.arrivalTime}</Typography>
-            <Typography variant="h6">Price: ${selectedFlight.price}</Typography>
+            <Typography variant="h6">Price: ₹{selectedFlight.price}</Typography>
           </Box>
         )}
 
@@ -150,14 +163,25 @@ const BookingForm = ({ user, selectedFlight }) => {
               />
             </Stack>
 
-            <TextField
-              name="seatNumber"
-              label="Preferred Seat (Optional)"
-              value={formData.seatNumber}
-              onChange={handleChange}
-              fullWidth
-              placeholder="e.g., 12A"
-            />
+            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+              <TextField
+                name="seatNumber"
+                label="Preferred Seat (Optional)"
+                value={formData.seatNumber}
+                onChange={handleChange}
+                fullWidth
+                placeholder="e.g., 12A"
+              />
+              <TextField
+                name="passportNumber"
+                label="Passport Number"
+                value={formData.passportNumber}
+                onChange={handleChange}
+                required
+                fullWidth
+                placeholder="e.g., A12345678"
+              />
+            </Stack>
 
             <Button
               type="submit"

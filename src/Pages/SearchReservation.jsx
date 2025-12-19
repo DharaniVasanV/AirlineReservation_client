@@ -157,9 +157,19 @@ const SearchReservation = () => {
                     <Stack direction="row" alignItems="center" spacing={2}>
                       <CalendarToday color="action" />
                       <Typography variant="body1">
-                        <strong>Departure:</strong> {formatDate(reservation.departureDate)}
+                        <strong>Flight Date:</strong> {formatDate(reservation.departureDate)}
                       </Typography>
                     </Stack>
+                    {reservation.price && (
+                      <Typography variant="body1">
+                        <strong>Price:</strong> ₹{reservation.price}
+                      </Typography>
+                    )}
+                    {reservation.passportNumber && (
+                      <Typography variant="body1">
+                        <strong>Passport:</strong> {reservation.passportNumber}
+                      </Typography>
+                    )}
                     {reservation.seatNumber && reservation.seatNumber !== 'Not Assigned' && (
                       <Stack direction="row" alignItems="center" spacing={2}>
                         <AirlineSeatReclineNormal color="action" />

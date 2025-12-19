@@ -43,6 +43,7 @@ const AdminPanel = () => {
     destination: '',
     departureTime: '',
     arrivalTime: '',
+    flightDate: '',
     price: '',
     totalSeats: '',
     availableSeats: ''
@@ -60,7 +61,7 @@ const AdminPanel = () => {
       });
       setFlights(response.data.data);
     } catch (error) {
-      setError('Error loading flights');
+      setError('Error loading flights'+error);
     }
   };
 
@@ -72,7 +73,7 @@ const AdminPanel = () => {
       });
       setPassengers(prev => ({ ...prev, [flightId]: response.data.data }));
     } catch (error) {
-      setError('Error loading passengers');
+      setError('Error loading passengers'+error);
     }
   };
 
@@ -88,7 +89,10 @@ const AdminPanel = () => {
   };
 
   useEffect(() => {
-    loadFlights();
+    const fetchFlights = async () => {
+      await loadFlights();
+    };
+    fetchFlights();
   }, []);
 
   const handleSubmit = async () => {
@@ -97,7 +101,8 @@ const AdminPanel = () => {
         ...formData,
         price: Number(formData.price),
         totalSeats: Number(formData.totalSeats),
-        availableSeats: Number(formData.availableSeats)
+        availableSeats: Number(formData.availableSeats),
+        flightDate: new Date(formData.flightDate)
       };
 
       if (editingFlight) {
@@ -130,6 +135,7 @@ const AdminPanel = () => {
       destination: flight.destination,
       departureTime: flight.departureTime,
       arrivalTime: flight.arrivalTime,
+      flightDate: flight.flightDate ? new Date(flight.flightDate).toISOString().split('T')[0] : '',
       price: flight.price.toString(),
       totalSeats: flight.totalSeats.toString(),
       availableSeats: flight.availableSeats.toString()
@@ -146,7 +152,7 @@ const AdminPanel = () => {
         setSuccess('Flight deleted successfully');
         loadFlights();
       } catch (error) {
-        setError('Error deleting flight');
+        setError('Error deleting flight'+error);
       }
     }
   };
@@ -159,6 +165,7 @@ const AdminPanel = () => {
       destination: '',
       departureTime: '',
       arrivalTime: '',
+      flightDate: '',
       price: '',
       totalSeats: '',
       availableSeats: ''
@@ -172,10 +179,10 @@ const AdminPanel = () => {
   };
 
   return (
-    <Box>
-      <Typography variant="h4" gutterBottom>Admin Dashboard</Typography>
+    <Box sx={{ color: 'white' }}>
+      <Typography variant="h4" gutterBottom sx={{ color: 'white' }}>Admin Dashboard</Typography>
       
-      <Tabs value={tabValue} onChange={(e, newValue) => setTabValue(newValue)} sx={{ mb: 3 }}>
+      <Tabs value={tabValue} onChange={(e, newValue) => setTabValue(newValue)} sx={{ mb: 3, '& .MuiTab-root': { color: 'white' }, '& .Mui-selected': { color: 'white !important' } }}>
         <Tab label="Flight Management" />
         <Tab label="Booking Overview" />
       </Tabs>
@@ -186,7 +193,7 @@ const AdminPanel = () => {
       {tabValue === 0 && (
         <Box>
           <Stack direction="row" justifyContent="space-between" alignItems="center" mb={3}>
-            <Typography variant="h5">Flight Management</Typography>
+            <Typography variant="h5" sx={{ color: 'white' }}>Flight Management</Typography>
             <Button
               variant="contained"
               startIcon={<Add />}
@@ -202,8 +209,8 @@ const AdminPanel = () => {
                 <TableRow>
                   <TableCell>Flight Number</TableCell>
                   <TableCell>Route</TableCell>
-                  <TableCell>Time</TableCell>
-                  <TableCell>Price</TableCell>
+                  <TableCell>Date & Time</TableCell>
+                  <TableCell>Price (₹)</TableCell>
                   <TableCell>Seats</TableCell>
                   <TableCell>Actions</TableCell>
                 </TableRow>
@@ -213,8 +220,11 @@ const AdminPanel = () => {
                   <TableRow key={flight._id}>
                     <TableCell>{flight.flightNumber}</TableCell>
                     <TableCell>{flight.departure} → {flight.destination}</TableCell>
-                    <TableCell>{flight.departureTime} - {flight.arrivalTime}</TableCell>
-                    <TableCell>${flight.price}</TableCell>
+                    <TableCell>
+                      {flight.flightDate ? new Date(flight.flightDate).toLocaleDateString('en-IN') : 'N/A'}<br/>
+                      {flight.departureTime} - {flight.arrivalTime}
+                    </TableCell>
+                    <TableCell>₹{flight.price}</TableCell>
                     <TableCell>{flight.availableSeats}/{flight.totalSeats}</TableCell>
                     <TableCell>
                       <IconButton onClick={() => handleEdit(flight)} color="primary">
@@ -234,7 +244,7 @@ const AdminPanel = () => {
 
       {tabValue === 1 && (
         <Box>
-          <Typography variant="h5" gutterBottom>Flight Bookings Overview</Typography>
+          <Typography variant="h5" gutterBottom sx={{ color: 'white' }}>Flight Bookings Overview</Typography>
           <Grid container spacing={3}>
             {flights.map((flight) => (
               <Grid item xs={12} key={flight._id}>
@@ -375,10 +385,20 @@ const AdminPanel = () => {
                 placeholder="e.g., 2:45 PM"
               />
             </Grid>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={6}>
               <TextField
                 fullWidth
-                label="Price ($)"
+                label="Flight Date"
+                type="date"
+                value={formData.flightDate}
+                onChange={(e) => setFormData({ ...formData, flightDate: e.target.value })}
+                InputLabelProps={{ shrink: true }}
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <TextField
+                fullWidth
+                label="Price (₹)"
                 type="number"
                 value={formData.price}
                 onChange={(e) => setFormData({ ...formData, price: e.target.value })}

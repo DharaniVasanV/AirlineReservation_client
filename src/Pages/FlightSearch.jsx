@@ -17,7 +17,8 @@ import axios from 'axios';
 const FlightSearch = ({ onFlightSelect }) => {
   const [searchParams, setSearchParams] = useState({
     departure: '',
-    destination: ''
+    destination: '',
+    date: ''
   });
   const [flights, setFlights] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -32,7 +33,7 @@ const FlightSearch = ({ onFlightSelect }) => {
       });
       setFlights(response.data.data);
     } catch (error) {
-      setError('Error searching flights');
+      setError('Error searching flights'+error);
     } finally {
       setLoading(false);
     }
@@ -44,7 +45,7 @@ const FlightSearch = ({ onFlightSelect }) => {
       const response = await axios.get('http://localhost:5000/api/airline/flights');
       setFlights(response.data.data);
     } catch (error) {
-      setError('Error loading flights');
+      setError('Error loading flights'+error);
     } finally {
       setLoading(false);
     }
@@ -63,7 +64,7 @@ const FlightSearch = ({ onFlightSelect }) => {
       <Card sx={{ mb: 3 }}>
         <CardContent>
           <Grid container spacing={2} alignItems="center">
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={3}>
               <TextField
                 fullWidth
                 label="From"
@@ -74,7 +75,7 @@ const FlightSearch = ({ onFlightSelect }) => {
                 }}
               />
             </Grid>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={3}>
               <TextField
                 fullWidth
                 label="To"
@@ -85,7 +86,17 @@ const FlightSearch = ({ onFlightSelect }) => {
                 }}
               />
             </Grid>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={3}>
+              <TextField
+                fullWidth
+                label="Departure Date"
+                type="date"
+                value={searchParams.date}
+                onChange={(e) => setSearchParams({ ...searchParams, date: e.target.value })}
+                InputLabelProps={{ shrink: true }}
+              />
+            </Grid>
+            <Grid item xs={12} md={3}>
               <Stack direction="row" spacing={2}>
                 <Button
                   variant="contained"
@@ -126,23 +137,28 @@ const FlightSearch = ({ onFlightSelect }) => {
                   </Grid>
                   
                   <Grid item xs={12} md={4}>
-                    <Stack direction="row" spacing={2} alignItems="center">
-                      <Box textAlign="center">
-                        <Typography variant="h6">{flight.departureTime}</Typography>
-                        <Typography variant="body2">{flight.departure}</Typography>
-                      </Box>
-                      <FlightTakeoff color="primary" />
-                      <Box textAlign="center">
-                        <Typography variant="h6">{flight.arrivalTime}</Typography>
-                        <Typography variant="body2">{flight.destination}</Typography>
-                      </Box>
+                    <Stack spacing={1}>
+                      <Typography variant="body2" color="primary" fontWeight="bold">
+                        {flight.flightDate ? new Date(flight.flightDate).toLocaleDateString('en-IN') : 'Date N/A'}
+                      </Typography>
+                      <Stack direction="row" spacing={2} alignItems="center">
+                        <Box textAlign="center">
+                          <Typography variant="h6">{flight.departureTime}</Typography>
+                          <Typography variant="body2">{flight.departure}</Typography>
+                        </Box>
+                        <FlightTakeoff color="primary" />
+                        <Box textAlign="center">
+                          <Typography variant="h6">{flight.arrivalTime}</Typography>
+                          <Typography variant="body2">{flight.destination}</Typography>
+                        </Box>
+                      </Stack>
                     </Stack>
                   </Grid>
                   
                   <Grid item xs={12} md={2}>
                     <Box textAlign="center">
                       <Typography variant="h6" color="success.main">
-                        ${flight.price}
+                        ₹{flight.price}
                       </Typography>
                       <Chip 
                         label={`${flight.availableSeats} seats`}
