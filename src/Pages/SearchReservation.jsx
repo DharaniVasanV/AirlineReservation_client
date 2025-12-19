@@ -38,7 +38,7 @@ const SearchReservation = () => {
     setReservation(null);
 
     try {
-      const response = await axios.get(`http://localhost:5000/api/airline/reservation/${searchReference}`);
+      const response = await axios.get(`https://airlinereservation-server.onrender.com/api/airline/reservation/${searchReference}`);
       
       if (response.data.success) {
         setReservation(response.data.data);

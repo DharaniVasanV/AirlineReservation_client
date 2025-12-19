@@ -40,7 +40,7 @@ const Login = ({ onNavigate, onLogin }) => {
     setLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:5000/api/airline/login', formData);
+      const response = await axios.post('https://airlinereservation-server.onrender.com/api/airline/login', formData);
       
       if (response.data.success) {
         localStorage.setItem('token', response.data.token);

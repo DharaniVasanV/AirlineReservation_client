@@ -56,7 +56,7 @@ const AdminPanel = () => {
   const loadFlights = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:5000/api/airline/admin/flights', {
+      const response = await axios.get('https://airlinereservation-server.onrender.com/api/airline/admin/flights', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setFlights(response.data.data);
@@ -68,7 +68,7 @@ const AdminPanel = () => {
   const loadPassengers = async (flightId) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get(`http://localhost:5000/api/airline/admin/flights/${flightId}/passengers`, {
+      const response = await axios.get(`https://airlinereservation-server.onrender.com/api/airline/admin/flights/${flightId}/passengers`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setPassengers(prev => ({ ...prev, [flightId]: response.data.data }));
@@ -106,12 +106,12 @@ const AdminPanel = () => {
       };
 
       if (editingFlight) {
-        await axios.put(`http://localhost:5000/api/airline/flights/${editingFlight._id}`, data, {
+        await axios.put(`https://airlinereservation-server.onrender.com/api/airline/flights/${editingFlight._id}`, data, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setSuccess('Flight updated successfully');
       } else {
-        await axios.post('http://localhost:5000/api/airline/flights', data, {
+        await axios.post('https://airlinereservation-server.onrender.com/api/airline/flights', data, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setSuccess('Flight added successfully');
@@ -146,7 +146,7 @@ const AdminPanel = () => {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this flight?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/airline/flights/${id}`, {
+        await axios.delete(`https://airlinereservation-server.onrender.com/api/airline/flights/${id}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setSuccess('Flight deleted successfully');

@@ -63,7 +63,7 @@ const BookingForm = ({ user, selectedFlight, onBookingSuccess }) => {
         flightId: selectedFlight._id
       };
       
-      const response = await axios.post('http://localhost:5000/api/airline/addReservation', bookingData, {
+      const response = await axios.post('https://airlinereservation-server.onrender.com/api/airline/addReservation', bookingData, {
         headers: { Authorization: `Bearer ${token}` }
       });
       

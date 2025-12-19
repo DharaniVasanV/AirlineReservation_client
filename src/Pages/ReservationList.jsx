@@ -38,8 +38,8 @@ const ReservationList = ({ user }) => {
     try {
       const token = localStorage.getItem('token');
       const endpoint = user?.role === 'admin' 
-        ? 'http://localhost:5000/api/airline/getReservations'
-        : 'http://localhost:5000/api/airline/myReservations';
+        ? 'https://airlinereservation-server.onrender.com/api/airline/getReservations'
+        : 'https://airlinereservation-server.onrender.com/api/airline/myReservations';
         
       const response = await axios.get(endpoint, {
         headers: { Authorization: `Bearer ${token}` }
@@ -58,7 +58,7 @@ const ReservationList = ({ user }) => {
   const updateStatus = async (id, currentStatus) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.put(`http://localhost:5000/api/airline/updateStatus/${id}`, {
+      const response = await axios.put(`https://airlinereservation-server.onrender.com/api/airline/updateStatus/${id}`, {
         status: !currentStatus
       }, {
         headers: { Authorization: `Bearer ${token}` }

@@ -28,7 +28,7 @@ const FlightSearch = ({ onFlightSelect }) => {
     setLoading(true);
     setError('');
     try {
-      const response = await axios.get('http://localhost:5000/api/airline/flights/search', {
+      const response = await axios.get('https://airlinereservation-server.onrender.com/api/airline/flights/search', {
         params: searchParams
       });
       setFlights(response.data.data);
@@ -42,7 +42,7 @@ const FlightSearch = ({ onFlightSelect }) => {
   const loadAllFlights = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://localhost:5000/api/airline/flights');
+      const response = await axios.get('https://airlinereservation-server.onrender.com/api/airline/flights');
       setFlights(response.data.data);
     } catch (error) {
       setError('Error loading flights'+error);
