@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   Box,
   Typography,
@@ -30,11 +30,7 @@ const ReservationList = ({ user }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    fetchReservations();
-  }, []);
-
-  const fetchReservations = async () => {
+  const fetchReservations = useCallback(async () => {
     try {
       const token = localStorage.getItem('token');
       const endpoint = user?.role === 'admin' 
@@ -53,7 +49,11 @@ const ReservationList = ({ user }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [user?.role]);
+
+  useEffect(() => {
+    fetchReservations();
+  }, [fetchReservations]);
 
   const updateStatus = async (id, currentStatus) => {
     try {
