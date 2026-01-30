@@ -180,9 +180,9 @@ const AdminPanel = () => {
 
   return (
     <Box sx={{ color: 'white' }}>
-      <Typography variant="h4" gutterBottom sx={{ color: 'white' }}>Admin Dashboard</Typography>
+      <Typography variant="h4" gutterBottom sx={{ color: '#0064c8' }}>Admin Dashboard</Typography>
       
-      <Tabs value={tabValue} onChange={(e, newValue) => setTabValue(newValue)} sx={{ mb: 3, '& .MuiTab-root': { color: 'white' }, '& .Mui-selected': { color: 'white !important' } }}>
+      <Tabs value={tabValue} onChange={(e, newValue) => setTabValue(newValue)} sx={{ mb: 3, '& .MuiTab-root': { color: '#1e90ff', fontWeight: 600 }, '& .Mui-selected': { color: '#0064c8 !important', fontWeight: 700 } }}>
         <Tab label="Flight Management" />
         <Tab label="Booking Overview" />
       </Tabs>

@@ -56,7 +56,7 @@ const Dashboard = ({ user, onLogout }) => {
 
   return (
     <Box className="dashboard-container">
-      <AppBar position="static" className="dashboard-header">
+      <AppBar position="fixed" className="dashboard-header" sx={{ zIndex: 1300 }}>
         <Toolbar>
           <FlightTakeoff sx={{ mr: 2 }} />
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
@@ -68,7 +68,7 @@ const Dashboard = ({ user, onLogout }) => {
         </Toolbar>
       </AppBar>
 
-      <Container maxWidth="lg" sx={{ mt: 3 }}>
+      <Container maxWidth="lg" sx={{ mt: 10, pt: 3 }}>
         <Grid container spacing={3}>
           {user.role === 'admin' ? (
             <Grid item xs={12}>

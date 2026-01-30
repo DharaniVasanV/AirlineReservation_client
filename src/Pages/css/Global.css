@@ -1,0 +1,213 @@
+/* Global Styles for All Pages */
+* {
+  color: #ffffff !important;
+  box-sizing: border-box;
+}
+
+/* Common Container Styling */
+.page-container {
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(135deg, #0a2463 0%, #1e90ff 50%, #00b4d8 100%);
+  padding: 40px;
+  box-sizing: border-box;
+  position: relative;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.page-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1920') center/cover no-repeat fixed;
+  opacity: 0.1;
+  z-index: 0;
+}
+
+.page-container > * {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1400px;
+}
+
+/* Common Page Title */
+.page-title {
+  text-align: center;
+  color: #ffffff !important;
+  font-weight: 800;
+  margin-bottom: 30px;
+  text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.5);
+  font-size: 3rem;
+  letter-spacing: 1px;
+}
+
+/* Common Card Styling */
+.common-card {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-radius: 24px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+  border: 2px solid rgba(30, 144, 255, 0.3);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.common-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 60px rgba(30, 144, 255, 0.4);
+  border-color: #1e90ff;
+}
+
+/* Common Button Styling */
+.common-button-contained {
+  background: linear-gradient(135deg, #1e90ff 0%, #0064c8 100%) !important;
+  box-shadow: 0 4px 15px rgba(30, 144, 255, 0.4);
+  font-weight: 600;
+  text-transform: none;
+  border-radius: 12px;
+  padding: 12px 24px;
+  color: #ffffff !important;
+}
+
+.common-button-contained:hover {
+  background: linear-gradient(135deg, #0064c8 0%, #004a99 100%) !important;
+  box-shadow: 0 6px 20px rgba(30, 144, 255, 0.6);
+}
+
+.common-button-outlined {
+  border: 2px solid #1e90ff !important;
+  color: #1e90ff !important;
+  font-weight: 600;
+  text-transform: none;
+  border-radius: 12px;
+  padding: 10px 20px;
+}
+
+.common-button-outlined:hover {
+  background: rgba(30, 144, 255, 0.1) !important;
+  border-color: #0064c8 !important;
+}
+
+/* Material-UI Component Overrides */
+.MuiCard-root * {
+  color: #0a2463 !important;
+}
+
+.MuiTableCell-root {
+  color: #0a2463 !important;
+  font-weight: 500;
+}
+
+.MuiTableHead-root .MuiTableCell-root {
+  background: linear-gradient(135deg, #1e90ff 0%, #0064c8 100%) !important;
+  color: #ffffff !important;
+  font-weight: 700;
+}
+
+.MuiTab-root {
+  color: #ffffff !important;
+  font-weight: 600;
+}
+
+.MuiAlert-root {
+  color: #0a2463 !important;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.MuiTextField-root .MuiInputLabel-root {
+  color: #ffffff !important;
+}
+
+.MuiTextField-root .MuiOutlinedInput-root {
+  color: #ffffff !important;
+}
+
+.MuiTextField-root .MuiOutlinedInput-notchedOutline {
+  border-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.MuiTextField-root .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: #1e90ff !important;
+}
+
+.MuiTextField-root .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #1e90ff !important;
+}
+
+/* Loading Container */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(135deg, #0a2463 0%, #1e90ff 50%, #00b4d8 100%);
+  color: #ffffff;
+}
+
+.loading-container .MuiCircularProgress-root {
+  color: #ffffff;
+}
+
+/* Form Styling */
+.common-form {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  border: 2px solid rgba(30, 144, 255, 0.3);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.common-form * {
+  color: #0a2463 !important;
+}
+
+.common-form .MuiTextField-root .MuiInputLabel-root {
+  color: #0a2463 !important;
+}
+
+.common-form .MuiTextField-root .MuiOutlinedInput-root {
+  color: #0a2463 !important;
+}
+
+.common-form .MuiTextField-root .MuiOutlinedInput-notchedOutline {
+  border-color: rgba(10, 36, 99, 0.3) !important;
+}
+
+/* Responsive Design */
+@media (max-width: 960px) {
+  .page-container {
+    padding: 30px 20px;
+  }
+  
+  .page-title {
+    font-size: 2.2rem;
+  }
+  
+  .common-form {
+    padding: 30px 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .page-container {
+    padding: 20px 15px;
+  }
+  
+  .page-title {
+    font-size: 1.8rem;
+  }
+  
+  .common-form {
+    padding: 20px 15px;
+  }
+}
