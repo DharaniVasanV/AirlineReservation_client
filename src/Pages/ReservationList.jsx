@@ -9,7 +9,11 @@ import {
   Button,
   Stack,
   CircularProgress,
-  Alert
+  Alert,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions
 } from '@mui/material';
 import { 
   Flight, 
@@ -19,7 +23,8 @@ import {
   CalendarToday,
   AirlineSeatReclineNormal,
   Download,
-  CreditCard
+  CreditCard,
+  Cancel
 } from '@mui/icons-material';
 import axios from 'axios';
 import jsPDF from 'jspdf';
@@ -29,6 +34,7 @@ const ReservationList = ({ user }) => {
   const [reservations, setReservations] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [cancelDialog, setCancelDialog] = useState({ open: false, reservation: null });
 
   const fetchReservations = useCallback(async () => {
     try {
@@ -69,6 +75,32 @@ const ReservationList = ({ user }) => {
       }
     } catch (error) {
       setError('Failed to update status'+error);
+    }
+  };
+
+  const cancelReservation = async (reservation) => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.delete(`https://airlinereservation-server.onrender.com/api/airline/cancelReservation/${reservation._id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      
+      if (response.data.success) {
+        fetchReservations();
+        setCancelDialog({ open: false, reservation: null });
+      }
+    } catch (error) {
+      setError('Failed to cancel reservation: ' + error.response?.data?.message || error.message);
+    }
+  };
+
+  const handleCancelClick = (reservation) => {
+    setCancelDialog({ open: true, reservation });
+  };
+
+  const handleCancelConfirm = () => {
+    if (cancelDialog.reservation) {
+      cancelReservation(cancelDialog.reservation);
     }
   };
 
@@ -222,7 +254,7 @@ const ReservationList = ({ user }) => {
                     </Stack>
                   </Box>
 
-                  <Stack direction="row" spacing={2} alignItems="center">
+                  <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap">
                     {user?.role === 'admin' ? (
                       <Button
                         variant="outlined"
@@ -233,16 +265,29 @@ const ReservationList = ({ user }) => {
                         {reservation.status ? 'Mark as Pending' : 'Confirm Booking'}
                       </Button>
                     ) : (
-                      !reservation.status && (
-                        <Button
-                          variant="contained"
-                          size="small"
-                          onClick={() => updateStatus(reservation._id, reservation.status)}
-                          color="success"
-                        >
-                          Confirm Booking
-                        </Button>
-                      )
+                      <>
+                        {!reservation.status && (
+                          <Button
+                            variant="contained"
+                            size="small"
+                            onClick={() => updateStatus(reservation._id, reservation.status)}
+                            color="success"
+                          >
+                            Confirm Booking
+                          </Button>
+                        )}
+                        {!reservation.status && (
+                          <Button
+                            variant="outlined"
+                            size="small"
+                            startIcon={<Cancel />}
+                            onClick={() => handleCancelClick(reservation)}
+                            color="error"
+                          >
+                            Cancel
+                          </Button>
+                        )}
+                      </>
                     )}
                     
                     <Button
@@ -250,9 +295,8 @@ const ReservationList = ({ user }) => {
                       size="small"
                       startIcon={<Download />}
                       onClick={() => downloadTicket(reservation)}
-                      sx={{ ml: 'auto' }}
                     >
-                      Download Ticket
+                      Download
                     </Button>
                   </Stack>
 
@@ -289,6 +333,45 @@ const ReservationList = ({ user }) => {
           </Typography>
         </Box>
       )}
+
+      {/* Cancel Confirmation Dialog */}
+      <Dialog
+        open={cancelDialog.open}
+        onClose={() => setCancelDialog({ open: false, reservation: null })}
+        maxWidth="sm"
+        fullWidth
+      >
+        <DialogTitle>Cancel Reservation</DialogTitle>
+        <DialogContent>
+          <Typography>
+            Are you sure you want to cancel this reservation?
+          </Typography>
+          {cancelDialog.reservation && (
+            <Box sx={{ mt: 2, p: 2, bgcolor: 'grey.100', borderRadius: 1 }}>
+              <Typography variant="body2">
+                <strong>Booking Reference:</strong> {cancelDialog.reservation.bookingReference}
+              </Typography>
+              <Typography variant="body2">
+                <strong>Flight:</strong> {cancelDialog.reservation.flightNumber}
+              </Typography>
+              <Typography variant="body2">
+                <strong>Route:</strong> {cancelDialog.reservation.departure} → {cancelDialog.reservation.destination}
+              </Typography>
+            </Box>
+          )}
+          <Typography variant="body2" color="error" sx={{ mt: 2 }}>
+            Note: This action cannot be undone.
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setCancelDialog({ open: false, reservation: null })}>
+            Keep Reservation
+          </Button>
+          <Button onClick={handleCancelConfirm} color="error" variant="contained">
+            Cancel Reservation
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };

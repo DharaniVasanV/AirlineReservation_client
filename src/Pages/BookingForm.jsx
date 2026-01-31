@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 import { FlightTakeoff, Person } from '@mui/icons-material';
 import axios from 'axios';
+import SeatSelection from '../Components/SeatSelection';
 import './css/BookingForm.css';
 
 const BookingForm = ({ user, selectedFlight, onBookingSuccess }) => {
@@ -20,6 +21,7 @@ const BookingForm = ({ user, selectedFlight, onBookingSuccess }) => {
     seatNumber: '',
     passportNumber: ''
   });
+  const [selectedSeat, setSelectedSeat] = useState('');
 
   useEffect(() => {
     if (user) {
@@ -32,6 +34,10 @@ const BookingForm = ({ user, selectedFlight, onBookingSuccess }) => {
       });
     }
   }, [user]);
+
+  useEffect(() => {
+    setFormData(prev => ({ ...prev, seatNumber: selectedSeat }));
+  }, [selectedSeat]);
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState({ show: false, type: '', message: '' });
 
@@ -119,6 +125,14 @@ const BookingForm = ({ user, selectedFlight, onBookingSuccess }) => {
           </Box>
         )}
 
+        {selectedFlight && (
+          <SeatSelection
+            selectedFlight={selectedFlight}
+            onSeatSelect={setSelectedSeat}
+            selectedSeat={selectedSeat}
+          />
+        )}
+
         {alert.show && (
           <Alert 
             severity={alert.type} 
@@ -163,25 +177,23 @@ const BookingForm = ({ user, selectedFlight, onBookingSuccess }) => {
               />
             </Stack>
 
-            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-              <TextField
-                name="seatNumber"
-                label="Preferred Seat (Optional)"
-                value={formData.seatNumber}
-                onChange={handleChange}
-                fullWidth
-                placeholder="e.g., 12A"
-              />
-              <TextField
-                name="passportNumber"
-                label="Passport Number"
-                value={formData.passportNumber}
-                onChange={handleChange}
-                required
-                fullWidth
-                placeholder="e.g., A12345678"
-              />
-            </Stack>
+            <TextField
+              name="passportNumber"
+              label="Passport Number"
+              value={formData.passportNumber}
+              onChange={handleChange}
+              required
+              fullWidth
+              placeholder="e.g., A12345678"
+            />
+
+            {selectedSeat && (
+              <Box sx={{ p: 2, bgcolor: 'success.light', borderRadius: 1 }}>
+                <Typography variant="body1">
+                  Selected Seat: <strong>{selectedSeat}</strong>
+                </Typography>
+              </Box>
+            )}
 
             <Button
               type="submit"
