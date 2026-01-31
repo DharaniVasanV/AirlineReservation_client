@@ -36,22 +36,30 @@ const SeatSelection = ({ selectedFlight, onSeatSelect, selectedSeat }) => {
     fetchOccupiedSeats();
   }, [selectedFlight]);
   
-  // Generate seat layout (6 seats per row, 20 rows)
+  // Generate seat layout based on flight's total seats
   const generateSeats = () => {
     const seats = [];
     const seatLetters = ['A', 'B', 'C', 'D', 'E', 'F'];
+    const totalSeats = selectedFlight?.totalSeats || 120;
+    const seatsPerRow = 6;
+    const totalRows = Math.ceil(totalSeats / seatsPerRow);
     
-    for (let row = 1; row <= 20; row++) {
-      for (let letter of seatLetters) {
-        const seatNumber = `${row}${letter}`;
-        seats.push({
-          number: seatNumber,
-          row: row,
-          letter: letter,
-          isOccupied: occupiedSeats.includes(seatNumber),
-          isSelected: selectedSeat === seatNumber,
-          isPremium: row <= 3 // First 3 rows are premium
-        });
+    for (let row = 1; row <= totalRows; row++) {
+      for (let letterIndex = 0; letterIndex < seatsPerRow; letterIndex++) {
+        const seatNumber = `${row}${seatLetters[letterIndex]}`;
+        const seatIndex = (row - 1) * seatsPerRow + letterIndex;
+        
+        // Only create seat if within total seats limit
+        if (seatIndex < totalSeats) {
+          seats.push({
+            number: seatNumber,
+            row: row,
+            letter: seatLetters[letterIndex],
+            isOccupied: occupiedSeats.includes(seatNumber),
+            isSelected: selectedSeat === seatNumber,
+            isPremium: row <= 3 // First 3 rows are premium
+          });
+        }
       }
     }
     return seats;
@@ -122,7 +130,7 @@ const SeatSelection = ({ selectedFlight, onSeatSelect, selectedSeat }) => {
         </Typography>
         
         <Grid container spacing={0.5}>
-          {Array.from({ length: 20 }, (_, rowIndex) => (
+          {Array.from({ length: Math.ceil((selectedFlight?.totalSeats || 120) / 6) }, (_, rowIndex) => (
             <Grid item xs={12} key={rowIndex + 1}>
               <Stack direction="row" spacing={0.5} justifyContent="center">
                 {/* Left side seats (A, B, C) */}
