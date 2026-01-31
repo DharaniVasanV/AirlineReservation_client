@@ -19,7 +19,8 @@ const BookingForm = ({ user, selectedFlight, onBookingSuccess }) => {
     email: '',
     phone: '',
     seatNumber: '',
-    passportNumber: ''
+    passportNumber: '',
+    aadharNumber: ''
   });
   const [selectedSeat, setSelectedSeat] = useState('');
 
@@ -30,7 +31,8 @@ const BookingForm = ({ user, selectedFlight, onBookingSuccess }) => {
         email: user.email || '',
         phone: user.phone || '',
         seatNumber: '',
-        passportNumber: ''
+        passportNumber: '',
+        aadharNumber: ''
       });
     }
   }, [user]);
@@ -86,7 +88,8 @@ const BookingForm = ({ user, selectedFlight, onBookingSuccess }) => {
           email: '',
           phone: '',
           seatNumber: '',
-          passportNumber: ''
+          passportNumber: '',
+          aadharNumber: ''
         });
         
         // Navigate to My Bookings after 2 seconds and clear selected flight
@@ -177,15 +180,27 @@ const BookingForm = ({ user, selectedFlight, onBookingSuccess }) => {
               />
             </Stack>
 
-            <TextField
-              name="passportNumber"
-              label="Passport Number"
-              value={formData.passportNumber}
-              onChange={handleChange}
-              required
-              fullWidth
-              placeholder="e.g., A12345678"
-            />
+            {selectedFlight?.country?.toLowerCase() === 'india' ? (
+              <TextField
+                name="aadharNumber"
+                label="Aadhar Number"
+                value={formData.aadharNumber}
+                onChange={handleChange}
+                required
+                fullWidth
+                placeholder="e.g., 1234 5678 9012"
+              />
+            ) : (
+              <TextField
+                name="passportNumber"
+                label="Passport Number"
+                value={formData.passportNumber}
+                onChange={handleChange}
+                required
+                fullWidth
+                placeholder="e.g., A12345678"
+              />
+            )}
 
             {selectedSeat && (
               <Box sx={{ p: 2, bgcolor: 'success.light', borderRadius: 1 }}>

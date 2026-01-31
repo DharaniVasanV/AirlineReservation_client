@@ -41,6 +41,7 @@ const AdminPanel = () => {
     airline: 'SkyWings Airlines',
     departure: '',
     destination: '',
+    country: '',
     departureTime: '',
     arrivalTime: '',
     flightDate: '',
@@ -133,6 +134,7 @@ const AdminPanel = () => {
       airline: flight.airline,
       departure: flight.departure,
       destination: flight.destination,
+      country: flight.country || '',
       departureTime: flight.departureTime,
       arrivalTime: flight.arrivalTime,
       flightDate: flight.flightDate ? new Date(flight.flightDate).toISOString().split('T')[0] : '',
@@ -163,6 +165,7 @@ const AdminPanel = () => {
       airline: 'SkyWings Airlines',
       departure: '',
       destination: '',
+      country: '',
       departureTime: '',
       arrivalTime: '',
       flightDate: '',
@@ -365,6 +368,15 @@ const AdminPanel = () => {
                 label="Destination City"
                 value={formData.destination}
                 onChange={(e) => setFormData({ ...formData, destination: e.target.value })}
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <TextField
+                fullWidth
+                label="Country"
+                value={formData.country}
+                onChange={(e) => setFormData({ ...formData, country: e.target.value })}
+                placeholder="e.g., India, USA, UK"
               />
             </Grid>
             <Grid item xs={12} md={6}>
