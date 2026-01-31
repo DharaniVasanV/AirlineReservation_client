@@ -1,6 +1,6 @@
 /* Global Styles for All Pages */
 * {
-  color: #ffffff !important;
+  color: #050247 !important;
   box-sizing: border-box;
 }
 
@@ -40,7 +40,7 @@
 /* Common Page Title */
 .page-title {
   text-align: center;
-  color: #ffffff !important;
+  color: #1403d4 !important;
   font-weight: 800;
   margin-bottom: 30px;
   text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.5);
@@ -71,7 +71,7 @@
   text-transform: none;
   border-radius: 12px;
   padding: 12px 24px;
-  color: #ffffff !important;
+  color: #5133f7 !important;
 }
 
 .common-button-contained:hover {
@@ -121,11 +121,11 @@
 }
 
 .MuiTextField-root .MuiInputLabel-root {
-  color: #ffffff !important;
+  color: #210291 !important;
 }
 
 .MuiTextField-root .MuiOutlinedInput-root {
-  color: #ffffff !important;
+  color: #4a06f5 !important;
 }
 
 .MuiTextField-root .MuiOutlinedInput-notchedOutline {

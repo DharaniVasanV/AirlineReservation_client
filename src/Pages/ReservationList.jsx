@@ -86,7 +86,7 @@ const ReservationList = ({ user }) => {
     // Header
     pdf.setFontSize(20);
     pdf.setTextColor(25, 118, 210);
-    pdf.text('SkyWings Platform', 20, 30);
+    pdf.text('AirNexus Platform', 20, 30);
     pdf.text('E-Ticket', 20, 45);
     
     // Booking Reference
@@ -120,7 +120,7 @@ const ReservationList = ({ user }) => {
     
     // Footer
     pdf.setFontSize(10);
-    pdf.text('Thank you for choosing SkyWings Platform!', 20, 290);
+    pdf.text('Thank you for choosing AirNexus Platform!', 20, 290);
     
     pdf.save(`ticket-${reservation.bookingReference}.pdf`);
   };

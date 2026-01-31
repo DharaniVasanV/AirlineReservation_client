@@ -34,7 +34,7 @@
 
 .admin-title {
   text-align: center;
-  color: #ffffff !important;
+  color: #0404e8 !important;
   font-weight: 800;
   margin-bottom: 30px;
   text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.5);
@@ -73,7 +73,7 @@
 }
 
 .section-title {
-  color: #ffffff !important;
+  color: #2305c8 !important;
   font-weight: 700;
   font-size: 2rem;
 }
@@ -203,4 +203,57 @@
   .admin-table {
     font-size: 0.8rem;
   }
+}
+
+/* Global override for all Material-UI input labels */
+.MuiInputLabel-root {
+  color: #1e90ff !important;
+  font-weight: 600 !important;
+}
+
+.MuiInputLabel-root.Mui-focused {
+  color: #1e90ff !important;
+}
+
+.MuiInputLabel-shrink {
+  color: #1e90ff !important;
+}
+
+.MuiFormLabel-root {
+  color: #1e90ff !important;
+}
+
+/* Admin Panel Dialog Input Labels */
+.MuiDialog-root .MuiTextField-root .MuiInputLabel-root {
+  color: #1e90ff !important;
+  font-weight: 600;
+}
+
+.MuiDialog-root .MuiTextField-root .MuiInputLabel-root.Mui-focused {
+  color: #1e90ff !important;
+}
+
+.MuiDialog-root .MuiTextField-root .MuiInputLabel-shrink {
+  color: #1e90ff !important;
+}
+
+.MuiDialog-root .MuiFormLabel-root {
+  color: #1e90ff !important;
+}
+
+.MuiDialog-root .MuiTextField-root .MuiOutlinedInput-root {
+  color: #0a2463 !important;
+}
+
+.MuiDialog-root .MuiTextField-root .MuiOutlinedInput-notchedOutline {
+  border-color: #1e90ff !important;
+  border-width: 2px;
+}
+
+.MuiDialog-root .MuiTextField-root .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: #0064c8 !important;
+}
+
+.MuiDialog-root .MuiTextField-root .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #1e90ff !important;
 }

@@ -60,7 +60,7 @@ const Dashboard = ({ user, onLogout }) => {
         <Toolbar>
           <FlightTakeoff sx={{ mr: 2 }} />
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            SkyWings Platform - Welcome, {user.name}
+            AirNexus Platform - Welcome, {user.name}
           </Typography>
           <Button color="inherit" onClick={onLogout} startIcon={<Logout />}>
             Logout

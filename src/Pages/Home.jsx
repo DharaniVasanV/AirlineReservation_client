@@ -44,7 +44,7 @@ const Home = ({ onNavigate }) => {
         {/* Hero Section */}
         <Box className="hero-section">
           <Typography variant="h2" component="h1" className="hero-title">
-            Welcome to SkyWings
+            Welcome to AirNexus
           </Typography>
           <Typography variant="h5" className="hero-subtitle">
             Your Flight Booking Platform
